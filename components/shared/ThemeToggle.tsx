@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 // Light / Dark / System picker for the navbar and the dashboard topbar.
-// next-themes only fills `theme` after mount, so the server and the first
-// client render are identical and there is no hydration mismatch.
+// Both icons stay in the HTML and CSS picks the visible one (dark: classes),
+// so the server and the first client render are identical — no hydration mismatch.
 export default function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
 
@@ -26,11 +26,8 @@ export default function ThemeToggle({ className }: { className?: string }) {
           />
         }
       >
-        {theme === "dark" ? (
-          <Moon className="h-4 w-4" />
-        ) : (
-          <Sun className="h-4 w-4" />
-        )}
+        <Sun className="h-4 w-4 dark:hidden" />
+        <Moon className="hidden h-4 w-4 dark:block" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuRadioGroup
