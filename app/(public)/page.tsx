@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import ServiceCard, { ServiceCardData } from "@/components/shared/ServiceCard";
 import HowItWorks from "@/components/shared/HowItWorks";
@@ -19,8 +20,35 @@ async function getFeaturedServices(): Promise<ServiceCardData[]> {
   }
 }
 
-export default async function HomePage() {
+// The featured grid: streams in after the page shell (keeps navigation instant)
+async function FeaturedServices() {
   const services = await getFeaturedServices();
+
+  if (services.length === 0) {
+    return <p className="text-muted-foreground">No services available yet.</p>;
+  }
+
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => (
+        <ServiceCard key={service._id} service={service} />
+      ))}
+    </div>
+  );
+}
+
+// Placeholder shown while the featured services stream in
+function FeaturedServicesFallback() {
+  return (
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+      {[0, 1, 2].map((index) => (
+        <div key={index} className="h-64 animate-pulse rounded-xl bg-muted" />
+      ))}
+    </div>
+  );
+}
+
+export default function HomePage() {
 
   return (
     <>
@@ -67,15 +95,9 @@ export default async function HomePage() {
           </Link>
         </div>
 
-        {services.length === 0 ? (
-          <p className="text-muted-foreground">No services available yet.</p>
-        ) : (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {services.map((service) => (
-              <ServiceCard key={service._id} service={service} />
-            ))}
-          </div>
-        )}
+        <Suspense fallback={<FeaturedServicesFallback />}>
+          <FeaturedServices />
+        </Suspense>
       </section>
 
       {/* How FixMate Works */}
