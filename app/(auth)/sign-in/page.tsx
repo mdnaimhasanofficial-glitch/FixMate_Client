@@ -42,7 +42,13 @@ function SignInForm() {
         return;
       }
       toast.success("Signed in successfully");
-      router.push(searchParams.get("redirect") || "/dashboard");
+      // Only follow local paths, never an external site
+      const nextPath = searchParams.get("redirect");
+      router.push(
+        nextPath && nextPath.startsWith("/") && !nextPath.startsWith("//")
+          ? nextPath
+          : "/dashboard"
+      );
       router.refresh();
     } catch {
       toast.error("Something went wrong");
