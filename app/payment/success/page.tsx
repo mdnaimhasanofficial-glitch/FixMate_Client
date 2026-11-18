@@ -22,7 +22,7 @@ export default function PaymentSuccessPage() {
     <Suspense
       fallback={
         <div className="mx-auto max-w-md px-4 py-24">
-          <div className="space-y-3 rounded-xl bg-white p-8 shadow-sm ring-1 ring-border">
+          <div className="space-y-3 rounded-xl bg-card p-8 shadow-sm ring-1 ring-border">
             <Skeleton className="mx-auto h-16 w-16 rounded-full" />
             <Skeleton className="mx-auto h-7 w-48" />
             <Skeleton className="h-16 w-full" />
@@ -74,7 +74,7 @@ function VerifyPayment() {
   if (isLoading) {
     return (
       <div className="mx-auto max-w-md px-4 py-24">
-        <div className="space-y-3 rounded-xl bg-white p-8 shadow-sm ring-1 ring-border">
+        <div className="space-y-3 rounded-xl bg-card p-8 shadow-sm ring-1 ring-border">
           <Skeleton className="mx-auto h-16 w-16 rounded-full" />
           <Skeleton className="mx-auto h-7 w-48" />
           <Skeleton className="h-16 w-full" />
@@ -100,11 +100,11 @@ function VerifyPayment() {
 
   return (
     <div className="mx-auto max-w-md px-4 py-24">
-      <div className="rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-border">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-          <CircleCheck className="h-8 w-8 text-green-600" />
+      <div className="rounded-xl bg-card p-8 text-center shadow-sm ring-1 ring-border">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-500/15">
+          <CircleCheck className="h-8 w-8 text-green-600 dark:text-green-400" />
         </span>
-        <h1 className="mt-4 text-2xl font-bold text-navy">
+        <h1 className="mt-4 text-2xl font-bold text-foreground">
           Payment Successful
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -114,7 +114,7 @@ function VerifyPayment() {
         <div className="mt-6 space-y-3 rounded-lg bg-background p-4 text-left ring-1 ring-border">
           <div className="flex items-center justify-between gap-4">
             <span className="text-sm text-muted-foreground">Amount</span>
-            <span className="font-semibold text-navy">
+            <span className="font-semibold text-foreground">
               ${payment.amount.toFixed(2)}
             </span>
           </div>
@@ -124,7 +124,7 @@ function VerifyPayment() {
             </span>
             <span
               title={payment.transactionId || undefined}
-              className="min-w-0 truncate text-right text-xs text-navy"
+              className="min-w-0 truncate text-right text-xs text-foreground"
             >
               {payment.transactionId || "—"}
             </span>

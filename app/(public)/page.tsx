@@ -52,9 +52,9 @@ export default async function HomePage() {
 
       {/* Featured Services */}
       <section className="mx-auto max-w-7xl px-4 py-16">
-        <div className="mb-8 flex items-end justify-between">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-navy">Featured Services</h2>
+            <h2 className="text-2xl font-bold text-foreground">Featured Services</h2>
             <p className="text-muted-foreground">
               The latest approved services from our technicians
             </p>

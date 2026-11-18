@@ -59,7 +59,7 @@ export default function AdminTransactionsPage() {
       <div className="space-y-4">
         <Skeleton className="h-8 w-52" />
         <Skeleton className="h-24 w-full" />
-        <div className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border">
+        <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton key={index} className="h-12 w-full" />
           ))}
@@ -80,7 +80,7 @@ export default function AdminTransactionsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-navy">Transactions</h1>
+        <h1 className="text-2xl font-bold text-foreground">Transactions</h1>
         <p className="text-sm text-muted-foreground">
           {data.payments.length} payments
         </p>
@@ -95,7 +95,7 @@ export default function AdminTransactionsPage() {
         />
       </div>
 
-      <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+      <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[820px] text-left text-sm">
             <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
@@ -111,7 +111,7 @@ export default function AdminTransactionsPage() {
             <tbody className="divide-y divide-border">
               {data.payments.map((payment) => (
                 <tr key={payment._id} className="hover:bg-muted/40">
-                  <td className="px-4 py-3 font-medium text-navy">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     {payment.serviceTitle}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
@@ -120,7 +120,7 @@ export default function AdminTransactionsPage() {
                   <td className="px-4 py-3 text-muted-foreground">
                     {payment.technicianName}
                   </td>
-                  <td className="px-4 py-3 font-medium text-navy">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     ${payment.amount.toFixed(2)}
                   </td>
                   <td className="px-4 py-3">

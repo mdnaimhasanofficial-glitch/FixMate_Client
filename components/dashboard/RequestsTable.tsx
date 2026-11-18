@@ -41,7 +41,7 @@ export default function RequestsTable({
   onAction: (item: RequestItem, action: RequestAction) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+    <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[960px] text-left text-sm">
           <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
@@ -60,11 +60,11 @@ export default function RequestsTable({
               const actions = ACTIONS[item.status] || [];
               return (
                 <tr key={item._id} className="hover:bg-muted/40">
-                  <td className="px-4 py-3 font-medium text-navy">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     {item.serviceTitle}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="block font-medium text-navy">
+                    <span className="block font-medium text-foreground">
                       {item.customerName}
                     </span>
                     <span className="block text-xs text-muted-foreground">

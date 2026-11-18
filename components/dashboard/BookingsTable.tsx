@@ -28,7 +28,7 @@ export default function BookingsTable({
   onPay: (booking: Booking) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+    <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
       <table className="w-full text-left text-sm">
         <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
           <tr>
@@ -51,7 +51,7 @@ export default function BookingsTable({
                     alt={booking.serviceTitle}
                     className="h-10 w-10 shrink-0 rounded-lg object-cover"
                   />
-                  <span className="font-medium text-navy">
+                  <span className="font-medium text-foreground">
                     {booking.serviceTitle}
                   </span>
                 </div>
@@ -63,7 +63,7 @@ export default function BookingsTable({
                 {new Date(booking.preferredDate).toLocaleDateString()}
               </td>
               <td className="px-4 py-3">
-                <span className="font-medium text-navy">
+                <span className="font-medium text-foreground">
                   ${booking.finalAmount}
                 </span>
                 {booking.finalAmount !== booking.basePrice && (

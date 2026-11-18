@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Home } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { Badge } from "@/components/ui/badge";
+import ThemeToggle from "@/components/shared/ThemeToggle";
 
 // Avatar, name, live role badge and a link back to the public site
 export default function Topbar() {
@@ -14,8 +15,8 @@ export default function Topbar() {
   const role = user?.role || "customer";
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-border bg-white px-4 pl-14 lg:pl-6">
-      <span className="hidden text-sm font-medium text-muted-foreground sm:block">
+    <header className="sticky top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-border bg-card px-4 pl-14 lg:pl-6">
+      <span className="hidden min-w-0 truncate text-sm font-medium text-muted-foreground lg:block">
         {user ? `Welcome, ${user.name}` : "Dashboard"}
       </span>
 
@@ -23,10 +24,12 @@ export default function Topbar() {
         {/* Back to the public pages */}
         <Link
           href="/"
-          className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium text-navy transition-colors hover:bg-muted"
+          className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
         >
           <Home className="h-4 w-4" /> Home
         </Link>
+
+        <ThemeToggle />
 
         <div className="flex items-center gap-2">
           {user?.image ? (
@@ -36,12 +39,12 @@ export default function Topbar() {
               className="h-9 w-9 rounded-full object-cover"
             />
           ) : (
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-navy text-sm font-semibold text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
               {(user?.name || "?").charAt(0).toUpperCase()}
             </span>
           )}
           <div className="hidden leading-tight sm:block">
-            <p className="text-sm font-medium text-navy">{user?.name}</p>
+            <p className="text-sm font-medium text-foreground">{user?.name}</p>
             <p className="text-xs text-muted-foreground">{user?.email}</p>
           </div>
           <Badge

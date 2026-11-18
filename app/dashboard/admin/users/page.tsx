@@ -61,7 +61,7 @@ export default function AdminUsersPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-52" />
-        <div className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border">
+        <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
           {Array.from({ length: 5 }).map((_, index) => (
             <Skeleton key={index} className="h-14 w-full" />
           ))}
@@ -82,7 +82,7 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-navy">Users</h1>
+        <h1 className="text-2xl font-bold text-foreground">Users</h1>
         <p className="text-sm text-muted-foreground">{users.length} users</p>
       </div>
 

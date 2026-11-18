@@ -36,7 +36,7 @@ export default function ServiceFilters() {
   }
 
   return (
-    <div className="rounded-xl bg-white p-4 shadow-sm ring-1 ring-border">
+    <div className="rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
       {/* Search box */}
       <form
         onSubmit={(event) => {

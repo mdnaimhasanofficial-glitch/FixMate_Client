@@ -11,7 +11,7 @@ export default function Loading() {
         {Array.from({ length: 6 }).map((_, index) => (
           <div
             key={index}
-            className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border"
+            className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border"
           >
             <Skeleton className="h-40 w-full rounded-lg" />
             <Skeleton className="h-5 w-3/4" />

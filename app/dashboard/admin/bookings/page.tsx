@@ -64,7 +64,7 @@ export default function AdminBookingsPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-52" />
-        <div className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border">
+        <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
           {Array.from({ length: 5 }).map((_, index) => (
             <Skeleton key={index} className="h-14 w-full" />
           ))}
@@ -76,7 +76,7 @@ export default function AdminBookingsPage() {
   if (!bookings || bookings.length === 0) {
     return (
       <div className="space-y-4">
-        <h1 className="text-2xl font-bold text-navy">Bookings</h1>
+        <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
         <StatusFilter value={filter} onChange={setFilter} options={BOOKING_FILTERS} />
         <EmptyState
           title="No bookings here"
@@ -89,7 +89,7 @@ export default function AdminBookingsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-navy">Bookings</h1>
+        <h1 className="text-2xl font-bold text-foreground">Bookings</h1>
         <p className="text-sm text-muted-foreground">
           {bookings.length} bookings
         </p>
@@ -97,7 +97,7 @@ export default function AdminBookingsPage() {
 
       <StatusFilter value={filter} onChange={setFilter} options={BOOKING_FILTERS} />
 
-      <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+      <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px] text-left text-sm">
             <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
@@ -114,7 +114,7 @@ export default function AdminBookingsPage() {
             <tbody className="divide-y divide-border">
               {bookings.map((booking) => (
                 <tr key={booking._id} className="hover:bg-muted/40">
-                  <td className="px-4 py-3 font-medium text-navy">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     {booking.serviceTitle}
                   </td>
                   <td className="px-4 py-3 text-muted-foreground">
@@ -132,7 +132,7 @@ export default function AdminBookingsPage() {
                   <td className="px-4 py-3">
                     <StatusBadge status={booking.paymentStatus} />
                   </td>
-                  <td className="px-4 py-3 font-medium text-navy">
+                  <td className="px-4 py-3 font-medium text-foreground">
                     ${booking.finalAmount}
                   </td>
                 </tr>

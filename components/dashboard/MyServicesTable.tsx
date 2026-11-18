@@ -31,7 +31,7 @@ export default function MyServicesTable({
   onDelete: (service: MyService) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+    <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
@@ -54,7 +54,7 @@ export default function MyServicesTable({
                       alt={service.title}
                       className="h-10 w-10 shrink-0 rounded-lg object-cover"
                     />
-                    <span className="font-medium text-navy">
+                    <span className="font-medium text-foreground">
                       {service.title}
                     </span>
                   </div>
@@ -62,7 +62,7 @@ export default function MyServicesTable({
                 <td className="px-4 py-3 text-muted-foreground">
                   {service.category}
                 </td>
-                <td className="px-4 py-3 font-medium text-navy">
+                <td className="px-4 py-3 font-medium text-foreground">
                   ${service.basePrice}
                 </td>
                 <td className="px-4 py-3">

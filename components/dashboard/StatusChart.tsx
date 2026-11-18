@@ -17,8 +17,8 @@ export default function StatusChart({
   data: { status: string; count: number }[];
 }) {
   return (
-    <div className="h-80 w-full rounded-xl bg-white p-5 shadow-sm ring-1 ring-border">
-      <h3 className="font-semibold text-navy">Bookings by Status</h3>
+    <div className="h-80 w-full rounded-xl bg-card p-5 shadow-sm ring-1 ring-border">
+      <h3 className="font-semibold text-foreground">Bookings by Status</h3>
       <p className="text-sm text-muted-foreground">Live numbers from the API</p>
       <div className="mt-4 h-[calc(100%-3.5rem)]">
         <ResponsiveContainer width="100%" height="100%">
@@ -26,16 +26,21 @@ export default function StatusChart({
             data={data}
             margin={{ top: 8, right: 8, left: -16, bottom: 0 }}
           >
-            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+            {/* Grid and tick colors follow the theme so they stay readable in dark mode */}
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="var(--border)"
+              vertical={false}
+            />
             <XAxis
               dataKey="status"
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
               tickLine={false}
               axisLine={false}
             />
             <YAxis
               allowDecimals={false}
-              tick={{ fontSize: 12 }}
+              tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
               tickLine={false}
               axisLine={false}
             />

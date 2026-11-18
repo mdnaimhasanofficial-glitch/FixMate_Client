@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 export default function PaymentCancelPage() {
   return (
     <div className="mx-auto max-w-md px-4 py-24">
-      <div className="rounded-xl bg-white p-8 text-center shadow-sm ring-1 ring-border">
-        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-          <XCircle className="h-8 w-8 text-orange-500" />
+      <div className="rounded-xl bg-card p-8 text-center shadow-sm ring-1 ring-border">
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-100 dark:bg-orange-500/15">
+          <XCircle className="h-8 w-8 text-orange-500 dark:text-orange-400" />
         </span>
-        <h1 className="mt-4 text-2xl font-bold text-navy">Payment cancelled</h1>
+        <h1 className="mt-4 text-2xl font-bold text-foreground">Payment cancelled</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           No money was taken. Your booking is still waiting for payment — try
           again whenever you are ready.

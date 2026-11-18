@@ -56,9 +56,9 @@ export default async function ServicesPage({
   const totalPages = data.totalPages || 0;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
+    <div className="mx-auto max-w-7xl px-4 py-16">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-navy">All Services</h1>
+        <h1 className="text-3xl font-bold text-foreground">All Services</h1>
         <p className="text-muted-foreground">{data.total} services available</p>
       </div>
 
@@ -90,7 +90,7 @@ export default async function ServicesPage({
           {page > 1 ? (
             <Link
               href={pageHref(query, page - 1)}
-              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-navy hover:bg-muted"
+              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
             >
               <ChevronLeft className="h-4 w-4" /> Previous
             </Link>
@@ -107,8 +107,8 @@ export default async function ServicesPage({
               aria-current={number === page ? "page" : undefined}
               className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium ${
                 number === page
-                  ? "bg-navy text-white"
-                  : "border text-navy hover:bg-muted"
+                  ? "bg-primary text-primary-foreground"
+                  : "border text-foreground hover:bg-muted"
               }`}
             >
               {number}
@@ -118,7 +118,7 @@ export default async function ServicesPage({
           {page < totalPages ? (
             <Link
               href={pageHref(query, page + 1)}
-              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-navy hover:bg-muted"
+              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
             >
               Next <ChevronRight className="h-4 w-4" />
             </Link>

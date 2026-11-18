@@ -16,7 +16,7 @@ export default function Error({
       <span className="flex h-14 w-14 items-center justify-center rounded-full bg-destructive/10">
         <AlertTriangle className="h-7 w-7 text-destructive" />
       </span>
-      <h1 className="mt-5 text-2xl font-bold text-navy">Something went wrong</h1>
+      <h1 className="mt-5 text-3xl font-bold text-foreground">Something went wrong</h1>
       <p className="mt-2 max-w-md text-muted-foreground">
         We could not load this page. It is usually a temporary problem — press
         Try Again and it will work.

@@ -81,7 +81,7 @@ export default function ProfileForm({
   return (
     <div className="max-w-2xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-navy">My Profile</h1>
+        <h1 className="text-2xl font-bold text-foreground">My Profile</h1>
         <p className="text-sm text-muted-foreground">
           Update your personal information
         </p>
@@ -89,7 +89,7 @@ export default function ProfileForm({
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-border"
+        className="space-y-4 rounded-xl bg-card p-6 shadow-sm ring-1 ring-border"
       >
         {/* Current photo + new photo file input */}
         <div className="flex items-center gap-4">
@@ -100,7 +100,7 @@ export default function ProfileForm({
               className="h-20 w-20 shrink-0 rounded-full object-cover"
             />
           ) : (
-            <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-navy text-2xl font-bold text-white">
+            <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
               {(user.name || "?").charAt(0).toUpperCase()}
             </span>
           )}

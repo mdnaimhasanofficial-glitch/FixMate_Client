@@ -16,9 +16,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const ROLE_BADGE: Record<string, string> = {
-  customer: "bg-blue-100 text-blue-700",
-  technician: "bg-orange-100 text-orange-700",
-  admin: "bg-navy text-white",
+  customer: "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-400",
+  technician:
+    "bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-400",
+  admin: "bg-primary text-primary-foreground",
 };
 
 // Skeleton while loading, buttons when logged out, avatar menu when logged in
@@ -74,7 +75,7 @@ export default function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
         render={
           <button
             aria-label="Open account menu"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-navy text-sm font-semibold text-white"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground"
           />
         }
       >

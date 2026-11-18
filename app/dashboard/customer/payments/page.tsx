@@ -43,7 +43,7 @@ export default function CustomerPaymentsPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-52" />
-        <div className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border">
+        <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton key={index} className="h-12 w-full" />
           ))}
@@ -66,13 +66,13 @@ export default function CustomerPaymentsPage() {
   return (
     <div className="space-y-4">
       <div>
-        <h1 className="text-2xl font-bold text-navy">Payment History</h1>
+        <h1 className="text-2xl font-bold text-foreground">Payment History</h1>
         <p className="text-sm text-muted-foreground">
           {payments.length} payments
         </p>
       </div>
 
-      <div className="overflow-x-auto rounded-xl bg-white shadow-sm ring-1 ring-border">
+      <div className="overflow-x-auto rounded-xl bg-card shadow-sm ring-1 ring-border">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
             <tr>
@@ -86,13 +86,13 @@ export default function CustomerPaymentsPage() {
           <tbody className="divide-y divide-border">
             {payments.map((payment) => (
               <tr key={payment._id} className="hover:bg-muted/40">
-                <td className="px-4 py-3 font-medium text-navy">
+                <td className="px-4 py-3 font-medium text-foreground">
                   {payment.serviceTitle}
                 </td>
                 <td className="px-4 py-3 text-muted-foreground">
                   {payment.technicianName}
                 </td>
-                <td className="px-4 py-3 font-medium text-navy">
+                <td className="px-4 py-3 font-medium text-foreground">
                   ${payment.amount.toFixed(2)}
                 </td>
                 <td className="px-4 py-3">

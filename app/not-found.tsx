@@ -44,7 +44,7 @@ export default function NotFound() {
       <p className="mt-6 text-sm font-semibold uppercase tracking-wide text-brand">
         Error 404
       </p>
-      <h1 className="mt-2 text-3xl font-bold text-navy">
+      <h1 className="mt-2 text-3xl font-bold text-foreground">
         This page needs a repair
       </h1>
       <p className="mt-2 max-w-md text-muted-foreground">

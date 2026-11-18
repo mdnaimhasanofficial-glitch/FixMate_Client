@@ -48,7 +48,7 @@ export default function AdminDashboardPage() {
           {[0, 1, 2, 3].map((index) => (
             <div
               key={index}
-              className="flex items-center gap-3 rounded-xl bg-white p-5 shadow-sm ring-1 ring-border"
+              className="flex items-center gap-3 rounded-xl bg-card p-5 shadow-sm ring-1 ring-border"
             >
               <Skeleton className="h-11 w-11 rounded-full" />
               <div className="space-y-2">
@@ -97,7 +97,7 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-navy">Admin Dashboard</h1>
+        <h1 className="text-2xl font-bold text-foreground">Admin Dashboard</h1>
         <p className="text-sm text-muted-foreground">
           Everything happening on FixMate
         </p>

@@ -11,7 +11,7 @@ export default function DashboardLoading() {
         {Array.from({ length: 4 }).map((_, index) => (
           <div
             key={index}
-            className="space-y-2 rounded-xl bg-white p-5 shadow-sm ring-1 ring-border"
+            className="space-y-2 rounded-xl bg-card p-5 shadow-sm ring-1 ring-border"
           >
             <Skeleton className="h-4 w-24" />
             <Skeleton className="h-7 w-16" />
@@ -20,7 +20,7 @@ export default function DashboardLoading() {
       </div>
 
       {/* Table rows */}
-      <div className="mt-6 space-y-3 rounded-xl bg-white p-5 shadow-sm ring-1 ring-border">
+      <div className="mt-6 space-y-3 rounded-xl bg-card p-5 shadow-sm ring-1 ring-border">
         <Skeleton className="h-5 w-40" />
         {Array.from({ length: 5 }).map((_, index) => (
           <Skeleton key={index} className="h-10 w-full" />

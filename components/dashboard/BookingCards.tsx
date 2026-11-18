@@ -20,7 +20,7 @@ export default function BookingCards({
       {bookings.map((booking) => (
         <div
           key={booking._id}
-          className="space-y-3 rounded-xl bg-white p-4 shadow-sm ring-1 ring-border"
+          className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border"
         >
           <div className="flex gap-3">
             <img
@@ -29,7 +29,7 @@ export default function BookingCards({
               className="h-16 w-16 shrink-0 rounded-lg object-cover"
             />
             <div className="min-w-0">
-              <p className="truncate font-semibold text-navy">
+              <p className="truncate font-semibold text-foreground">
                 {booking.serviceTitle}
               </p>
               <p className="text-sm text-muted-foreground">
@@ -44,7 +44,7 @@ export default function BookingCards({
           <div className="flex flex-wrap items-center gap-2">
             <StatusBadge status={booking.status} />
             <StatusBadge status={booking.paymentStatus} />
-            <span className="ml-auto font-medium text-navy">
+            <span className="ml-auto font-medium text-foreground">
               ${booking.finalAmount}
             </span>
           </div>

@@ -38,7 +38,7 @@ export default function UsersTable({
   onRoleChange: (user: AdminUser, role: string) => void;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-border">
+    <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
       <div className="overflow-x-auto">
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
@@ -63,11 +63,11 @@ export default function UsersTable({
                           className="h-9 w-9 shrink-0 rounded-full object-cover"
                         />
                       ) : (
-                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-navy text-sm font-semibold text-white">
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground">
                           {user.name.charAt(0).toUpperCase()}
                         </span>
                       )}
-                      <span className="font-medium text-navy">
+                      <span className="font-medium text-foreground">
                         {user.name}
                         {isOwnRow && (
                           <span className="ml-1 text-xs text-muted-foreground">

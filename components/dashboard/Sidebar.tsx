@@ -23,7 +23,7 @@ export default function Sidebar() {
         type="button"
         onClick={() => setOpen(!open)}
         aria-label="Toggle menu"
-        className="fixed left-4 top-3.5 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-navy text-white shadow-sm lg:hidden"
+        className="fixed left-4 top-3.5 z-50 flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-sm lg:hidden"
       >
         {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>

@@ -13,6 +13,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import UserMenu from "@/components/shared/UserMenu";
+import ThemeToggle from "@/components/shared/ThemeToggle";
 
 const LINKS = [
   { href: "/", label: "Home" },
@@ -35,7 +36,7 @@ export default function Navbar() {
           href={link.href}
           onClick={() => setOpen(false)}
           className={`text-sm font-medium transition-colors ${
-            active ? "text-brand underline underline-offset-4" : "text-muted-foreground hover:text-navy"
+            active ? "text-brand underline underline-offset-4" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           {link.label}
@@ -45,10 +46,10 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         {/* Logo, same size on every page */}
-        <Link href="/" className="flex items-center gap-2 text-lg font-bold text-navy">
+        <Link href="/" className="flex items-center gap-2 text-lg font-bold text-foreground">
           <Wrench className="h-5 w-5 text-brand" />
           FixMate
         </Link>
@@ -57,7 +58,8 @@ export default function Navbar() {
         <nav className="hidden items-center gap-6 md:flex">{navLinks()}</nav>
 
         {/* Desktop auth area */}
-        <div className="hidden items-center md:flex">
+        <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
           <UserMenu />
         </div>
 
@@ -73,12 +75,13 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent side="right" className="w-72">
               <SheetHeader>
-                <SheetTitle className="flex items-center gap-2 text-navy">
+                <SheetTitle className="flex items-center gap-2 text-foreground">
                   <Wrench className="h-5 w-5 text-brand" /> FixMate
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-4 px-4">{navLinks()}</nav>
-              <div className="px-4">
+              <div className="flex items-center justify-between px-4">
+                <ThemeToggle />
                 <UserMenu onNavigate={() => setOpen(false)} />
               </div>
             </SheetContent>

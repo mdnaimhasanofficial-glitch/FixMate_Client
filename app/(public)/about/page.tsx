@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Target, Compass, ShieldCheck } from "lucide-react";
 import HowItWorks from "@/components/shared/HowItWorks";
 import Faq from "@/components/shared/Faq";
-import { Button } from "@/components/ui/button";
 
 // What we stand for
 const VALUES = [
@@ -33,7 +32,7 @@ export default function AboutPage() {
           <span className="rounded-full bg-brand/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-brand">
             About Us
           </span>
-          <h1 className="mt-4 text-3xl font-bold lg:text-4xl">
+          <h1 className="mt-4 text-4xl font-bold leading-tight lg:text-5xl">
             Repairs made simple, honest and fast
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-white/70">
@@ -46,7 +45,7 @@ export default function AboutPage() {
       {/* Mission + values */}
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold text-navy">Our Mission</h2>
+          <h2 className="text-2xl font-bold text-foreground">Our Mission</h2>
           <p className="mx-auto mt-3 max-w-3xl text-muted-foreground">
             We want every home and office to get a reliable repair without
             haggling or waiting for days. FixMate makes finding a trusted
@@ -57,12 +56,12 @@ export default function AboutPage() {
           {VALUES.map((value) => (
             <div
               key={value.title}
-              className="rounded-xl bg-white p-6 text-center shadow-sm ring-1 ring-border"
+              className="rounded-xl bg-card p-6 text-center shadow-sm ring-1 ring-border"
             >
               <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-brand/10 text-brand">
                 <value.icon className="h-6 w-6" />
               </span>
-              <h3 className="mt-4 font-semibold text-navy">{value.title}</h3>
+              <h3 className="mt-4 font-semibold text-foreground">{value.title}</h3>
               <p className="mt-1 text-sm text-muted-foreground">
                 {value.description}
               </p>
@@ -79,13 +78,16 @@ export default function AboutPage() {
 
       {/* Call to action */}
       <section className="mx-auto max-w-7xl px-4 py-16 text-center">
-        <h2 className="text-2xl font-bold text-navy">Ready to fix something?</h2>
+        <h2 className="text-2xl font-bold text-foreground">Ready to fix something?</h2>
         <p className="mt-2 text-muted-foreground">
           Browse the services and send your first repair request.
         </p>
-        <Button className="mt-6" render={<Link href="/services" />}>
+        <Link
+          href="/services"
+          className="mt-6 inline-flex rounded-lg bg-brand px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
+        >
           Browse Services
-        </Button>
+        </Link>
       </section>
     </>
   );

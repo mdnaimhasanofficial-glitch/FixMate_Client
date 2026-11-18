@@ -45,7 +45,7 @@ export default async function ServiceDetailsPage({ params }: { params: Params })
   ];
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
+    <div className="mx-auto max-w-7xl px-4 py-16">
       <div className="grid gap-8 lg:grid-cols-2">
         {/* Image + technician card */}
         <div>
@@ -55,8 +55,8 @@ export default async function ServiceDetailsPage({ params }: { params: Params })
             className="aspect-video w-full rounded-xl object-cover"
           />
 
-          <div className="mt-6 rounded-xl bg-white p-6 shadow-sm ring-1 ring-border">
-            <h2 className="font-semibold text-navy">About the Technician</h2>
+          <div className="mt-6 rounded-xl bg-card p-6 shadow-sm ring-1 ring-border">
+            <h2 className="font-semibold text-foreground">About the Technician</h2>
             <div className="mt-4 flex items-start gap-4">
               {technician?.image ? (
                 <img
@@ -65,12 +65,12 @@ export default async function ServiceDetailsPage({ params }: { params: Params })
                   className="h-14 w-14 rounded-full object-cover"
                 />
               ) : (
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-navy font-semibold text-white">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground">
                   {(technician?.name || service.technicianName).charAt(0).toUpperCase()}
                 </span>
               )}
               <div>
-                <p className="font-semibold text-navy">{technician?.name || service.technicianName}</p>
+                <p className="font-semibold text-foreground">{technician?.name || service.technicianName}</p>
                 <p className="text-sm text-muted-foreground">{technician?.area}</p>
                 {technician?.bio && (
                   <p className="mt-1 text-sm text-muted-foreground">{technician.bio}</p>
@@ -85,10 +85,10 @@ export default async function ServiceDetailsPage({ params }: { params: Params })
           <span className="inline-block rounded-full bg-brand/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand">
             {service.category}
           </span>
-          <h1 className="mt-3 text-3xl font-bold text-navy">{service.title}</h1>
+          <h1 className="mt-3 text-3xl font-bold text-foreground">{service.title}</h1>
           <p className="mt-4 leading-relaxed text-muted-foreground">{service.description}</p>
 
-          <div className="mt-6 grid grid-cols-2 gap-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-border">
+          <div className="mt-6 grid grid-cols-1 gap-4 rounded-xl bg-card p-6 shadow-sm ring-1 ring-border sm:grid-cols-2">
             {details.map((item) => (
               <div key={item.label} className="flex items-start gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand">
@@ -96,7 +96,7 @@ export default async function ServiceDetailsPage({ params }: { params: Params })
                 </span>
                 <span>
                   <span className="block text-xs text-muted-foreground">{item.label}</span>
-                  <span className="block font-semibold text-navy">{item.value}</span>
+                  <span className="block font-semibold text-foreground">{item.value}</span>
                 </span>
               </div>
             ))}

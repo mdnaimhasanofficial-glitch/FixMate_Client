@@ -84,7 +84,7 @@ export default function AddServicePage() {
   return (
     <div className="max-w-2xl">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-navy">Add a Service</h1>
+        <h1 className="text-2xl font-bold text-foreground">Add a Service</h1>
         <p className="text-sm text-muted-foreground">
           Submit a new service and wait for admin approval
         </p>
@@ -92,7 +92,7 @@ export default function AddServicePage() {
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-4 rounded-xl bg-white p-6 shadow-sm ring-1 ring-border"
+        className="space-y-4 rounded-xl bg-card p-6 shadow-sm ring-1 ring-border"
       >
         {/* Technician info comes from the session, read-only */}
         <div className="grid gap-4 sm:grid-cols-2">

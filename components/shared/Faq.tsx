@@ -37,10 +37,10 @@ const FAQS = [
 // Click a question to open or close its answer
 export default function Faq() {
   return (
-    <section className="bg-white ring-1 ring-border">
+    <section className="bg-card ring-1 ring-border">
       <div className="mx-auto max-w-3xl px-4 py-16">
         <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold text-navy">
+          <h2 className="text-2xl font-bold text-foreground">
             Frequently Asked Questions
           </h2>
           <p className="mt-2 text-muted-foreground">
@@ -53,7 +53,7 @@ export default function Faq() {
               key={faq.question}
               className="group rounded-xl bg-background ring-1 ring-border"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-navy">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-medium text-foreground transition-colors hover:text-brand">
                 {faq.question}
                 <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180" />
               </summary>

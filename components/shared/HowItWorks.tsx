@@ -28,7 +28,7 @@ export default function HowItWorks() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-16">
       <div className="mb-10 text-center">
-        <h2 className="text-2xl font-bold text-navy">How FixMate Works</h2>
+        <h2 className="text-2xl font-bold text-foreground">How FixMate Works</h2>
         <p className="text-muted-foreground">Four easy steps from problem to solution</p>
       </div>
 
@@ -38,13 +38,13 @@ export default function HowItWorks() {
 
         {STEPS.map((step, index) => (
           <div key={step.title} className="relative flex flex-col items-center text-center">
-            <div className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-navy text-white ring-4 ring-white">
+            <div className="z-10 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground ring-4 ring-background">
               <step.icon className="h-7 w-7" />
             </div>
             <span className="mt-3 text-xs font-semibold uppercase tracking-wide text-brand">
               Step {index + 1}
             </span>
-            <h3 className="mt-1 font-semibold text-navy">{step.title}</h3>
+            <h3 className="mt-1 font-semibold text-foreground">{step.title}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{step.description}</p>
           </div>
         ))}

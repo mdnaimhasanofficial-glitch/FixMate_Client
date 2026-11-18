@@ -4,7 +4,7 @@ import { STATUS_STYLES } from "@/lib/constants";
 export default function StatusBadge({ status }: { status: string }) {
   const style = STATUS_STYLES[status] ?? {
     label: status,
-    className: "bg-slate-100 text-slate-600",
+    className: "bg-slate-100 text-slate-600 dark:bg-slate-500/15 dark:text-slate-300",
   };
   return (
     <span
