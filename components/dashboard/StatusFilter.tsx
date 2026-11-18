@@ -15,13 +15,15 @@ const FILTERS = [
 export default function StatusFilter({
   value,
   onChange,
+  options = FILTERS,
 }: {
   value: string;
   onChange: (value: string) => void;
+  options?: { value: string; label: string }[];
 }) {
   return (
     <div className="flex flex-wrap gap-2">
-      {FILTERS.map((option) => (
+      {options.map((option) => (
         <Button
           key={option.value}
           variant={value === option.value ? "default" : "outline"}
