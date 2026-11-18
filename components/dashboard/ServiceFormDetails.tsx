@@ -13,6 +13,7 @@ import { SERVICE_MODES } from "@/lib/constants";
 import type { ServiceValues } from "@/lib/serviceForm";
 
 // Duration, mode, area and the image file of the service
+// (the edit dialog passes showFile = false, it keeps the old image)
 export default function ServiceFormDetails({
   values,
   errors,
@@ -20,13 +21,15 @@ export default function ServiceFormDetails({
   fileInputKey,
   onChange,
   onFileChange,
+  showFile = true,
 }: {
   values: ServiceValues;
   errors: Record<string, string>;
-  file: File | null;
-  fileInputKey: number;
+  file?: File | null;
+  fileInputKey?: number;
   onChange: (key: keyof ServiceValues, value: string) => void;
-  onFileChange: (file: File | null) => void;
+  onFileChange?: (file: File | null) => void;
+  showFile?: boolean;
 }) {
   return (
     <>
@@ -85,22 +88,26 @@ export default function ServiceFormDetails({
             <p className="text-sm text-destructive">{errors.serviceArea}</p>
           )}
         </div>
-        <div className="space-y-1.5">
-          <Label htmlFor="image">Service Image</Label>
-          <Input
-            id="image"
-            key={fileInputKey}
-            type="file"
-            accept="image/*"
-            onChange={(event) => onFileChange(event.target.files?.[0] || null)}
-          />
-          <p className="text-xs text-muted-foreground">
-            {file ? file.name : "PNG or JPG"}
-          </p>
-          {errors.image && (
-            <p className="text-sm text-destructive">{errors.image}</p>
-          )}
-        </div>
+        {showFile && (
+          <div className="space-y-1.5">
+            <Label htmlFor="image">Service Image</Label>
+            <Input
+              id="image"
+              key={fileInputKey}
+              type="file"
+              accept="image/*"
+              onChange={(event) =>
+                onFileChange?.(event.target.files?.[0] || null)
+              }
+            />
+            <p className="text-xs text-muted-foreground">
+              {file ? file.name : "PNG or JPG"}
+            </p>
+            {errors.image && (
+              <p className="text-sm text-destructive">{errors.image}</p>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

@@ -21,7 +21,12 @@ export const EMPTY_SERVICE_VALUES: ServiceValues = {
 };
 
 // Check the form and return the error messages
-export function validateService(values: ServiceValues, file: File | null) {
+// (pass requireImage = false for the edit form, it does not change the image)
+export function validateService(
+  values: ServiceValues,
+  file: File | null,
+  requireImage = true
+) {
   const errors: Record<string, string> = {};
   if (!values.title.trim()) errors.title = "Title is required";
   if (!values.category) errors.category = "Category is required";
@@ -33,6 +38,6 @@ export function validateService(values: ServiceValues, file: File | null) {
     errors.estimatedDuration = "Estimated duration is required";
   if (!values.serviceMode) errors.serviceMode = "Service mode is required";
   if (!values.serviceArea.trim()) errors.serviceArea = "Service area is required";
-  if (!file) errors.image = "Service image is required";
+  if (requireImage && !file) errors.image = "Service image is required";
   return errors;
 }
