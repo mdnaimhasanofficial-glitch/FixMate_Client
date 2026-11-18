@@ -1,5 +1,8 @@
 import Link from "next/link";
 import ServiceCard, { ServiceCardData } from "@/components/shared/ServiceCard";
+import HowItWorks from "@/components/shared/HowItWorks";
+import PopularCategories from "@/components/shared/PopularCategories";
+import WhyChooseUs from "@/components/shared/WhyChooseUs";
 
 // Fetch the 6 newest approved services from the Express API
 async function getFeaturedServices(): Promise<ServiceCardData[]> {
@@ -74,6 +77,15 @@ export default async function HomePage() {
           </div>
         )}
       </section>
+
+      {/* How FixMate Works */}
+      <HowItWorks />
+
+      {/* Popular Categories */}
+      <PopularCategories />
+
+      {/* Why Choose Us + testimonials */}
+      <WhyChooseUs />
     </>
   );
 }
