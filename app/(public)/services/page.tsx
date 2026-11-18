@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import { connection } from "next/server";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ServiceCard, { ServiceCardData } from "@/components/shared/ServiceCard";
 import ServiceFilters from "@/components/shared/ServiceFilters";
@@ -13,6 +14,8 @@ const FILTER_KEYS = ["search", "category", "serviceMode", "sort", "page"];
 async function getServices(
   query: URLSearchParams
 ): Promise<{ items: ServiceCardData[]; total: number; totalPages: number }> {
+  // Render at request time, so the fetch never runs during prerender
+  await connection();
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services?${query}`, {
       cache: "no-store",
