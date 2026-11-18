@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { ThemeProvider } from "next-themes";
+import ThemeProvider from "@/components/shared/ThemeProvider";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -25,7 +25,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {/* Light/dark mode from next-themes, the "dark" class goes on <html> */}
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider>
           {children}
           {/* Toasts for every success and error message */}
           <Toaster position="top-center" richColors />
