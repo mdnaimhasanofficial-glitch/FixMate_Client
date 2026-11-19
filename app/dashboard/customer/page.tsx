@@ -25,11 +25,11 @@ export default function CustomerDashboardPage() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const data = await apiFetch("/api/stats");
+        const data = await apiFetch<Stats>("/api/stats");
         setStats(data);
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "Something went wrong"
+          error instanceof Error ? error.message : "Something went wrong",
         );
       } finally {
         setIsLoading(false);

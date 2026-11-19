@@ -9,6 +9,11 @@ import BookingsTable, { Booking } from "@/components/dashboard/BookingsTable";
 import BookingCards from "@/components/dashboard/BookingCards";
 import { Skeleton } from "@/components/ui/skeleton";
 
+// Stripe checkout API response
+type CheckoutResponse = {
+  url: string;
+};
+
 // My bookings: cancel a requested job or pay a completed one
 export default function CustomerBookingsPage() {
   const [bookings, setBookings] = useState<Booking[] | null>(null);
@@ -18,56 +23,65 @@ export default function CustomerBookingsPage() {
   const [payingId, setPayingId] = useState<string | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
-  // Fetch my bookings from the API (runs again when refreshKey changes)
+  // Fetch my bookings from the API
   useEffect(() => {
     async function loadBookings() {
       try {
-        const data = await apiFetch("/api/bookings/my");
+        const data = await apiFetch<Booking[]>("/api/bookings/my");
         setBookings(Array.isArray(data) ? data : []);
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "Something went wrong"
+          error instanceof Error ? error.message : "Something went wrong",
         );
         setBookings([]);
       } finally {
         setIsLoading(false);
       }
     }
+
     loadBookings();
   }, [refreshKey]);
 
-  // Cancel the booking the user confirmed
+  // Cancel booking
   async function handleCancel() {
     if (!cancelTarget) return;
+
     setIsCancelling(true);
+
     try {
       await apiFetch(`/api/bookings/${cancelTarget._id}/cancel`, {
         method: "PATCH",
       });
+
       toast.success("Booking cancelled");
       setCancelTarget(null);
-      setRefreshKey((key) => key + 1); // reload the list
+      setRefreshKey((key) => key + 1);
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Something went wrong"
+        error instanceof Error ? error.message : "Something went wrong",
       );
     } finally {
       setIsCancelling(false);
     }
   }
 
-  // Start Stripe checkout and go to the payment page
+  // Start Stripe checkout
   async function handlePay(booking: Booking) {
     setPayingId(booking._id);
+
     try {
-      const data = await apiFetch("/api/payments/create-checkout-session", {
-        method: "POST",
-        body: { bookingId: booking._id },
-      });
+      const data = await apiFetch<CheckoutResponse>(
+        "/api/payments/create-checkout-session",
+        {
+          method: "POST",
+          body: { bookingId: booking._id },
+        },
+      );
+
       window.location.href = data.url;
     } catch (error) {
       toast.error(
-        error instanceof Error ? error.message : "Something went wrong"
+        error instanceof Error ? error.message : "Something went wrong",
       );
       setPayingId(null);
     }
@@ -78,6 +92,7 @@ export default function CustomerBookingsPage() {
     return (
       <div className="space-y-4">
         <Skeleton className="h-8 w-52" />
+
         <div className="space-y-3 rounded-xl bg-card p-4 shadow-sm ring-1 ring-border">
           {Array.from({ length: 4 }).map((_, index) => (
             <Skeleton key={index} className="h-16 w-full" />
@@ -102,6 +117,7 @@ export default function CustomerBookingsPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-2xl font-bold text-foreground">My Bookings</h1>
+
         <p className="text-sm text-muted-foreground">
           {bookings.length} total requests
         </p>

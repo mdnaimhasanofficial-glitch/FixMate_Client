@@ -25,11 +25,11 @@ export default function TechnicianDashboardPage() {
   useEffect(() => {
     async function loadStats() {
       try {
-        const data = await apiFetch("/api/stats");
+        const data = await apiFetch<Stats>("/api/stats");
         setStats(data);
       } catch (error) {
         toast.error(
-          error instanceof Error ? error.message : "Something went wrong"
+          error instanceof Error ? error.message : "Something went wrong",
         );
       } finally {
         setIsLoading(false);
@@ -91,7 +91,9 @@ export default function TechnicianDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-foreground">Technician Dashboard</h1>
+        <h1 className="text-2xl font-bold text-foreground">
+          Technician Dashboard
+        </h1>
         <p className="text-sm text-muted-foreground">
           Your services and incoming repair requests
         </p>

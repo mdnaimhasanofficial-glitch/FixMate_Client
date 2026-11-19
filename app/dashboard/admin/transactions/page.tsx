@@ -38,7 +38,7 @@ export default function AdminTransactionsPage() {
   useEffect(() => {
     async function loadPayments() {
       try {
-        const result = await apiFetch("/api/admin/payments");
+        const result = await apiFetch<PaymentData>("/api/admin/payments");
         setData({
           payments: Array.isArray(result.payments) ? result.payments : [],
           totalRevenue: result.totalRevenue || 0,
@@ -97,7 +97,7 @@ export default function AdminTransactionsPage() {
 
       <div className="overflow-hidden rounded-xl bg-card shadow-sm ring-1 ring-border">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[820px] text-left text-sm">
+          <table className="w-full min-w-205 text-left text-sm">
             <thead className="border-b border-border bg-muted/50 text-xs uppercase text-muted-foreground">
               <tr>
                 <th className="px-4 py-3">Service</th>
@@ -126,7 +126,7 @@ export default function AdminTransactionsPage() {
                   <td className="px-4 py-3">
                     <span
                       title={payment.transactionId || undefined}
-                      className="block max-w-[160px] truncate text-xs text-muted-foreground"
+                      className="block max-w-40 truncate text-xs text-muted-foreground"
                     >
                       {payment.transactionId || "—"}
                     </span>

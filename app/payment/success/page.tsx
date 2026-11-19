@@ -54,8 +54,8 @@ function VerifyPayment() {
         return;
       }
       try {
-        const data = await apiFetch(
-          `/api/payments/verify?session_id=${encodeURIComponent(sessionId)}`
+        const data = await apiFetch<Payment>(
+          `/api/payments/verify?session_id=${encodeURIComponent(sessionId)}`,
         );
         setPayment(data);
       } catch (err) {
@@ -90,7 +90,9 @@ function VerifyPayment() {
       <div className="mx-auto max-w-md px-4 py-24">
         <EmptyState
           title="Payment could not be verified"
-          description={error || "Something went wrong while checking the payment."}
+          description={
+            error || "Something went wrong while checking the payment."
+          }
           actionLabel="Back to My Bookings"
           actionHref="/dashboard/customer/bookings"
         />
