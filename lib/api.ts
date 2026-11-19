@@ -1,14 +1,15 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+// Token cache
 let cachedToken: string | null = null;
 let cachedAt: number = 0;
 
-interface ApiFetchOptions extends Omit<RequestInit, "body" | "headers"> {
+// API options type
+interface ApiOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
-  headers?: HeadersInit;
 }
 
-// Get token and cache for 1 hour
+// Get token
 async function getToken(): Promise<string | null> {
   if (cachedToken && Date.now() - cachedAt < 60 * 60 * 1000) {
     return cachedToken;
@@ -26,19 +27,19 @@ async function getToken(): Promise<string | null> {
   return cachedToken;
 }
 
-// Clear token during sign out
+// Clear token
 export function clearToken(): void {
   cachedToken = null;
   cachedAt = 0;
 }
 
-// Reusable API fetch function
+// API fetch
 export async function apiFetch<T = unknown>(
   path: string,
-  options: ApiFetchOptions = {},
+  options: ApiOptions = {},
 ): Promise<T> {
   if (!API_URL) {
-    throw new Error("API_URL is not configured");
+    throw new Error("API URL is missing");
   }
 
   const token = await getToken();
