@@ -51,7 +51,7 @@ export default function NotFound() {
         The page you are looking for was moved, deleted, or never existed.
         Let&apos;s get you back on track.
       </p>
-      <Button className="mt-6" render={<Link href="/" />}>
+      <Button className="mt-6" nativeButton={false} render={<Link href="/" />}>
         Back to Home
       </Button>
     </div>

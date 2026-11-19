@@ -1,137 +1,63 @@
 import { Suspense } from "react";
-import Link from "next/link";
-import { connection } from "next/server";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import ServiceCard, { ServiceCardData } from "@/components/shared/ServiceCard";
-import ServiceFilters from "@/components/shared/ServiceFilters";
-import EmptyState from "@/components/shared/EmptyState";
+import ServicesBody from "./ServicesBody";
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+type SearchParams = Promise<{
+  [key: string]: string | string[] | undefined;
+}>;
 
-const FILTER_KEYS = ["search", "category", "serviceMode", "sort", "page"];
+export default function ServicesPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  return (
+    <div className="mx-auto max-w-7xl px-4 py-16">
+      <Suspense
+        fallback={
+          <div className="space-y-4">
+            <div className="h-9 w-64 animate-pulse rounded-lg bg-muted" />
 
-// Ask the Express API for this page of services (filtering happens there)
-async function getServices(
-  query: URLSearchParams
-): Promise<{ items: ServiceCardData[]; total: number; totalPages: number }> {
-  // Render at request time, so the fetch never runs during prerender
-  await connection();
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/services?${query}`, {
-      cache: "no-store",
-    });
-    if (!res.ok) return { items: [], total: 0, totalPages: 0 };
-    const data = await res.json();
-    return {
-      items: data.items || [],
-      total: data.total || 0,
-      totalPages: data.totalPages || 0,
-    };
-  } catch {
-    return { items: [], total: 0, totalPages: 0 };
-  }
+            <div className="h-28 animate-pulse rounded-xl bg-muted" />
+
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="h-64 animate-pulse rounded-xl bg-muted"
+                />
+              ))}
+            </div>
+          </div>
+        }
+      >
+        <ServicesPageContent searchParams={searchParams} />
+      </Suspense>
+    </div>
+  );
 }
 
-// Link for a page number that keeps the current filters
-function pageHref(query: URLSearchParams, page: number) {
-  const params = new URLSearchParams(query.toString());
-  params.set("page", String(page));
-  return `/services?${params.toString()}`;
-}
-
-export default async function ServicesPage({
+async function ServicesPageContent({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
   const raw = await searchParams;
 
-  // Build the query string from the URL params (no filtering in JS)
+  const FILTER_KEYS = ["search", "category", "serviceMode", "sort", "page"];
+
   const query = new URLSearchParams();
+
   FILTER_KEYS.forEach((key) => {
     const value = raw[key];
-    if (typeof value === "string" && value) query.set(key, value);
+
+    if (typeof value === "string" && value) {
+      query.set(key, value);
+    }
   });
-  if (!query.has("sort")) query.set("sort", "newest");
 
-  const data = await getServices(query);
-  const page = Number(query.get("page")) || 1;
-  const totalPages = data.totalPages || 0;
+  if (!query.has("sort")) {
+    query.set("sort", "newest");
+  }
 
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-16">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">All Services</h1>
-        <p className="text-muted-foreground">{data.total} services available</p>
-      </div>
-
-      {/* Filters only change the URL, so they survive a reload */}
-      <Suspense fallback={<div className="h-28 animate-pulse rounded-xl bg-muted" />}>
-        <ServiceFilters />
-      </Suspense>
-
-      {data.items.length === 0 ? (
-        <div className="mt-8">
-          <EmptyState
-            title="No services found"
-            description="Try a different search, or clear the filters to see everything."
-            actionLabel="Clear filters"
-            actionHref="/services"
-          />
-        </div>
-      ) : (
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {data.items.map((service) => (
-            <ServiceCard key={service._id} service={service} />
-          ))}
-        </div>
-      )}
-
-      {/* Previous / page numbers / Next */}
-      {totalPages > 1 && (
-        <nav className="mt-10 flex flex-wrap items-center justify-center gap-2" aria-label="Pagination">
-          {page > 1 ? (
-            <Link
-              href={pageHref(query, page - 1)}
-              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
-            >
-              <ChevronLeft className="h-4 w-4" /> Previous
-            </Link>
-          ) : (
-            <span className="flex cursor-not-allowed items-center gap-1 rounded-lg border px-3 py-2 text-sm text-muted-foreground opacity-50">
-              <ChevronLeft className="h-4 w-4" /> Previous
-            </span>
-          )}
-
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map((number) => (
-            <Link
-              key={number}
-              href={pageHref(query, number)}
-              aria-current={number === page ? "page" : undefined}
-              className={`flex h-9 w-9 items-center justify-center rounded-lg text-sm font-medium ${
-                number === page
-                  ? "bg-primary text-primary-foreground"
-                  : "border text-foreground hover:bg-muted"
-              }`}
-            >
-              {number}
-            </Link>
-          ))}
-
-          {page < totalPages ? (
-            <Link
-              href={pageHref(query, page + 1)}
-              className="flex items-center gap-1 rounded-lg border px-3 py-2 text-sm font-medium text-foreground hover:bg-muted"
-            >
-              Next <ChevronRight className="h-4 w-4" />
-            </Link>
-          ) : (
-            <span className="flex cursor-not-allowed items-center gap-1 rounded-lg border px-3 py-2 text-sm text-muted-foreground opacity-50">
-              Next <ChevronRight className="h-4 w-4" />
-            </span>
-          )}
-        </nav>
-      )}
-    </div>
-  );
+  return <ServicesBody query={query.toString()} />;
 }

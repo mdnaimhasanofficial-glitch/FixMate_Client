@@ -133,6 +133,7 @@ function VerifyPayment() {
 
         <Button
           className="mt-6 w-full"
+          nativeButton={false}
           render={<Link href="/dashboard/customer/bookings" />}
         >
           Back to My Bookings

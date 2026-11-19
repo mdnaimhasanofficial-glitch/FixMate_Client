@@ -35,6 +35,7 @@ export default function RequestRepair({ serviceId }: { serviceId: string }) {
     return (
       <Button
         className="w-full"
+        nativeButton={false}
         render={
           <Link href={`/sign-in?redirect=/services/${serviceId}`} />
         }

@@ -17,6 +17,7 @@ export default function PaymentCancelPage() {
         </p>
         <Button
           className="mt-6 w-full"
+          nativeButton={false}
           render={<Link href="/dashboard/customer/bookings" />}
         >
           Try Again

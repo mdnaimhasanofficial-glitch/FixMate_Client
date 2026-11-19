@@ -4,13 +4,14 @@ import ServiceCard, { ServiceCardData } from "@/components/shared/ServiceCard";
 import HowItWorks from "@/components/shared/HowItWorks";
 import PopularCategories from "@/components/shared/PopularCategories";
 import WhyChooseUs from "@/components/shared/WhyChooseUs";
+import Image from "next/image";
 
 // Fetch the 6 newest approved services from the Express API
 async function getFeaturedServices(): Promise<ServiceCardData[]> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/services?sort=newest&limit=6`,
-      { cache: "no-store" }
+      { cache: "no-store" },
     );
     if (!res.ok) return [];
     const data = await res.json();
@@ -40,7 +41,10 @@ async function FeaturedServices() {
 // Placeholder shown while the featured services stream in
 function FeaturedServicesFallback() {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-hidden="true">
+    <div
+      className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      aria-hidden="true"
+    >
       {[0, 1, 2].map((index) => (
         <div key={index} className="h-64 animate-pulse rounded-xl bg-muted" />
       ))}
@@ -49,7 +53,6 @@ function FeaturedServicesFallback() {
 }
 
 export default function HomePage() {
-
   return (
     <>
       {/* Hero */}
@@ -60,8 +63,8 @@ export default function HomePage() {
               Broken Device? Get It Fixed by Verified Technicians
             </h1>
             <p className="mt-4 max-w-lg text-white/70">
-              Book trusted repair professionals for your smartphone, laptop, AC and home
-              appliances — at your doorstep.
+              Book trusted repair professionals for your smartphone, laptop, AC
+              and home appliances — at your doorstep.
             </p>
             <Link
               href="/services"
@@ -70,10 +73,12 @@ export default function HomePage() {
               Browse Services
             </Link>
           </div>
-          <img
+          <Image
+            width={300}
+            height={300}
             src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1600&q=80"
             alt="Technician repairing a device"
-            className="aspect-[4/3] w-full rounded-xl object-cover shadow-lg"
+            className="aspect-4/3 w-full rounded-xl object-cover shadow-lg"
           />
         </div>
       </section>
@@ -82,7 +87,9 @@ export default function HomePage() {
       <section className="mx-auto max-w-7xl px-4 py-16">
         <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">Featured Services</h2>
+            <h2 className="text-2xl font-bold text-foreground">
+              Featured Services
+            </h2>
             <p className="text-muted-foreground">
               The latest approved services from our technicians
             </p>

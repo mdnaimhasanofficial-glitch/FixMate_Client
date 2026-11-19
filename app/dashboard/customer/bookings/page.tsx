@@ -41,7 +41,9 @@ export default function CustomerBookingsPage() {
     if (!cancelTarget) return;
     setIsCancelling(true);
     try {
-      await apiFetch(`/api/bookings/${cancelTarget._id}`, { method: "PATCH" });
+      await apiFetch(`/api/bookings/${cancelTarget._id}/cancel`, {
+        method: "PATCH",
+      });
       toast.success("Booking cancelled");
       setCancelTarget(null);
       setRefreshKey((key) => key + 1); // reload the list

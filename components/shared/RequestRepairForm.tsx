@@ -108,6 +108,7 @@ export default function RequestRepairForm({
           </p>
           <Button
             className="w-full"
+            nativeButton={false}
             render={
               <Link
                 href="/dashboard/customer/bookings"

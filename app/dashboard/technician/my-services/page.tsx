@@ -117,7 +117,10 @@ export default function MyServicesPage() {
             {services.length} services
           </p>
         </div>
-        <Button render={<Link href="/dashboard/technician/add-service" />}>
+        <Button
+          nativeButton={false}
+          render={<Link href="/dashboard/technician/add-service" />}
+        >
           <PlusCircle className="h-4 w-4" /> Add Service
         </Button>
       </div>
