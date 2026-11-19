@@ -1,32 +1,67 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-let cachedToken = null;
-let cachedAt = 0;
-async function getToken() {
-  // ১ ঘণ্টার মেধ আবার token চাইেব না
-  if (cachedToken && Date.now() - cachedAt < 60 * 60 * 1000) return cachedToken;
+
+let cachedToken: string | null = null;
+let cachedAt: number = 0;
+
+interface ApiFetchOptions extends Omit<RequestInit, "body" | "headers"> {
+  body?: unknown;
+  headers?: HeadersInit;
+}
+
+// Get token and cache for 1 hour
+async function getToken(): Promise<string | null> {
+  if (cachedToken && Date.now() - cachedAt < 60 * 60 * 1000) {
+    return cachedToken;
+  }
+
   const res = await fetch("/api/token");
+
   if (!res.ok) return null;
-  const data = await res.json();
-  cachedToken = data.token;
+
+  const data: { token?: string } = await res.json();
+
+  cachedToken = data.token ?? null;
   cachedAt = Date.now();
+
   return cachedToken;
 }
-// Sign out করার সময় এটা call করেব
-export function clearToken() {
+
+// Clear token during sign out
+export function clearToken(): void {
   cachedToken = null;
+  cachedAt = 0;
 }
-export async function apiFetch(path, options = {}) {
+
+// Reusable API fetch function
+export async function apiFetch<T = unknown>(
+  path: string,
+  options: ApiFetchOptions = {},
+): Promise<T> {
+  if (!API_URL) {
+    throw new Error("API_URL is not configured");
+  }
+
   const token = await getToken();
+
+  const headers = new Headers(options.headers);
+
+  headers.set("Content-Type", "application/json");
+
+  if (token) {
+    headers.set("Authorization", `Bearer ${token}`);
+  }
+
   const res = await fetch(`${API_URL}${path}`, {
     ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
-      ...options.headers,
-    },
-    body: options.body ? JSON.stringify(options.body) : undefined,
+    headers,
+    body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
   });
+
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || "Something went wrong");
-  return data;
+
+  if (!res.ok) {
+    throw new Error(data.message || "Something went wrong");
+  }
+
+  return data as T;
 }
