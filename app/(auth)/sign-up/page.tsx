@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { clearToken } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,6 +68,7 @@ export default function SignUpPage() {
         return;
       }
       toast.success("Account created successfully");
+      clearToken(); // drop any cached API token so the new account's token is fetched fresh
       router.push("/dashboard");
     } catch {
       toast.error("Something went wrong");

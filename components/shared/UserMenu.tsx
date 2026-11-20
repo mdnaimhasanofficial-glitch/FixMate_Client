@@ -36,12 +36,16 @@ export default function UserMenu({ onNavigate }: { onNavigate?: () => void }) {
 
   // Log out of BetterAuth, drop the cached token and go home
   async function handleSignOut() {
-    await authClient.signOut();
-    clearToken();
-    toast.success("Signed out");
-    onNavigate?.();
-    router.push("/");
-    router.refresh();
+    try {
+      await authClient.signOut();
+      clearToken();
+      toast.success("Signed out");
+      onNavigate?.();
+      router.push("/");
+      router.refresh();
+    } catch {
+      toast.error("Could not sign out. Please try again");
+    }
   }
 
   // Loading skeleton

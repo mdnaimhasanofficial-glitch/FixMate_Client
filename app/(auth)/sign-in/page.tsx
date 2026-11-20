@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { clearToken } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,6 +63,7 @@ function SignInForm() {
         return;
       }
       toast.success("Signed in successfully");
+      clearToken(); // drop any cached API token so the new account's token is fetched fresh
       // Only follow local paths, never an external site
       const nextPath = searchParams.get("redirect");
       router.push(

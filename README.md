@@ -113,13 +113,18 @@ From `package.json`:
    | `BETTER_AUTH_URL`       | This app's URL, e.g. `http://localhost:3000`          |
    | `JWT_SECRET`            | Any long random string (API tokens)                   |
    | `IMGBB_API_KEY`         | Free key from imgbb.com (photo uploads)               |
+   | `GOOGLE_CLIENT_ID`      | Google Cloud OAuth client ID (Google sign in)         |
+   | `GOOGLE_CLIENT_SECRET`  | Google Cloud OAuth client secret (Google sign in)     |
+
+   > `JWT_SECRET` must be the **same value** as `JWT_SECRET` in `fixmate-server/.env`,
+   > otherwise every API call returns 401.
 
 3. **Start the API** (separate repo, defaults to port 5000)
 
    ```bash
    cd ../fixmate-server
    npm install
-   node seed.js   # optional: demo data
+   npm run seed   # optional: demo data
    npm start
    ```
 
@@ -132,6 +137,28 @@ From `package.json`:
 
    Open <http://localhost:3000>.
 
+## Deploy (Vercel)
+
+Two separate Vercel projects: this frontend and the `fixmate-server` backend.
+`.env.local` is **not** uploaded — every variable must be added in
+Vercel → Project → Settings → Environment Variables **before** the first deploy
+(`NEXT_PUBLIC_*` values are baked in at build time).
+
+| Variable | Value |
+| --- | --- |
+| `NEXT_PUBLIC_API_URL` | the deployed server URL, e.g. `https://your-server.vercel.app` |
+| `NEXT_PUBLIC_APP_URL` | this app's URL, e.g. `https://your-client.vercel.app` |
+| `BETTER_AUTH_URL` | same as `NEXT_PUBLIC_APP_URL` |
+| `BETTER_AUTH_SECRET` | long random string (can reuse the local value) |
+| `JWT_SECRET` | **exactly the same** value as the server project's `JWT_SECRET` |
+| `MONGODB_URI` / `DB_NAME` | same MongoDB database as local |
+| `IMGBB_API_KEY` | imgbb API key |
+| `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` | Google OAuth credentials |
+
+After the frontend is live, add its URL to the server project's `CLIENT_URL`, and add
+`https://your-client.vercel.app/api/auth/callback/google` as an Authorized redirect URI
+in Google Cloud Console (Credentials → your OAuth client).
+
 ## Project Structure
 
 ```
@@ -140,5 +167,5 @@ components/shared/   navbar, footer, cards, public sections
 components/dashboard sidebar, topbar, tables, dialogs
 components/ui/       shadcn/ui components
 lib/                 api client, auth, guards, constants, helpers
-middleware.ts        session-cookie check for /dashboard
+proxy.ts             session-cookie check for /dashboard
 ```
