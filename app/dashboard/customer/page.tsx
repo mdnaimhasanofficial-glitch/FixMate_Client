@@ -7,6 +7,7 @@ import { apiFetch } from "@/lib/api";
 import StatsCard from "@/components/shared/StatsCard";
 import StatusChart from "@/components/dashboard/StatusChart";
 import EmptyState from "@/components/shared/EmptyState";
+import PlanCard from "@/components/dashboard/PlanCard";
 import { Skeleton } from "@/components/ui/skeleton";
 
 type Stats = {
@@ -96,6 +97,9 @@ export default function CustomerDashboardPage() {
           A quick look at your repair requests
         </p>
       </div>
+
+      {/* Free plan progress bar / Pro badge */}
+      <PlanCard />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((card) => (

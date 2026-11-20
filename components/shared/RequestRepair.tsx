@@ -11,6 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import RequestRepairForm from "@/components/shared/RequestRepairForm";
+import UpgradeModal from "@/components/shared/UpgradeModal";
 
 // Decide who can request a repair, then show the right button
 export default function RequestRepair({ serviceId }: { serviceId: string }) {
@@ -20,6 +21,7 @@ export default function RequestRepair({ serviceId }: { serviceId: string }) {
     | undefined;
   const role = user?.role || "customer";
   const [open, setOpen] = useState(false);
+  const [showUpgrade, setShowUpgrade] = useState(false);
 
   // Still checking the session
   if (isPending) {
@@ -62,20 +64,30 @@ export default function RequestRepair({ serviceId }: { serviceId: string }) {
   // Customer: open the request form in a dialog
   // (the form remounts on every open, so old errors are cleared)
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger render={<Button className="w-full" />}>
-        <CalendarCheck className="h-4 w-4" /> Request Repair
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
-        {open && (
-          <RequestRepairForm
-            serviceId={serviceId}
-            name={user.name || ""}
-            email={user.email || ""}
-            onClose={() => setOpen(false)}
-          />
-        )}
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger render={<Button className="w-full" />}>
+          <CalendarCheck className="h-4 w-4" /> Request Repair
+        </DialogTrigger>
+        <DialogContent className="sm:max-w-md">
+          {open && (
+            <RequestRepairForm
+              serviceId={serviceId}
+              name={user.name || ""}
+              email={user.email || ""}
+              onClose={() => setOpen(false)}
+              // Free limit reached: close the form and show the upgrade popup
+              onLimitReached={() => {
+                setOpen(false);
+                setShowUpgrade(true);
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Shown when the API answers with FREE_LIMIT_REACHED */}
+      <UpgradeModal open={showUpgrade} onClose={() => setShowUpgrade(false)} />
+    </>
   );
 }

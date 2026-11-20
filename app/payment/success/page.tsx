@@ -9,6 +9,7 @@ import { apiFetch } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import EmptyState from "@/components/shared/EmptyState";
 import { Skeleton } from "@/components/ui/skeleton";
+import SubscriptionResult from "@/app/payment/success/SubscriptionResult";
 
 type Payment = {
   amount: number;
@@ -16,7 +17,7 @@ type Payment = {
   serviceTitle: string;
 };
 
-// The page reads session_id, so it must sit inside <Suspense>
+// The page reads query params, so it must sit inside <Suspense>
 export default function PaymentSuccessPage() {
   return (
     <Suspense
@@ -31,9 +32,18 @@ export default function PaymentSuccessPage() {
         </div>
       }
     >
-      <VerifyPayment />
+      <SuccessRouter />
     </Suspense>
   );
+}
+
+// Pick the right flow: Pro upgrade (source=subscription) or booking payment
+function SuccessRouter() {
+  const searchParams = useSearchParams();
+  const source = searchParams.get("source");
+
+  if (source === "subscription") return <SubscriptionResult />;
+  return <VerifyPayment />;
 }
 
 // Ask the API to verify the Stripe session and show the receipt

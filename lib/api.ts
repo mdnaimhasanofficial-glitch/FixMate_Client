@@ -61,7 +61,12 @@ export async function apiFetch<T = unknown>(
   const data = await res.json().catch(() => ({}));
 
   if (!res.ok) {
-    throw new Error(data.message || "Something went wrong");
+    // Keep the API error code (e.g. FREE_LIMIT_REACHED) on the thrown error
+    const error = new Error(data.message || "Something went wrong") as Error & {
+      code?: string;
+    };
+    error.code = data.code;
+    throw error;
   }
 
   return data as T;

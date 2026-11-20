@@ -18,6 +18,7 @@ import ThemeToggle from "@/components/shared/ThemeToggle";
 const LINKS = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/about", label: "About" },
 ];
 

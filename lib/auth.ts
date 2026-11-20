@@ -26,6 +26,11 @@ export const auth = betterAuth({
       phone: { type: "string", required: false },
       area: { type: "string", required: false },
       bio: { type: "string", required: false },
+      // Subscription plan fields (written by the Stripe webhook on the server)
+      plan: { type: "string", defaultValue: "free" }, // "free" | "pro"
+      proActivatedAt: { type: "date", required: false },
+      proExpiresAt: { type: "date", required: false },
+      stripeCustomerId: { type: "string", required: false, returned: false },
     },
   },
   databaseHooks: {

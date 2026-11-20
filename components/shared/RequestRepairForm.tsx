@@ -39,11 +39,13 @@ export default function RequestRepairForm({
   name,
   email,
   onClose,
+  onLimitReached,
 }: {
   serviceId: string;
   name: string;
   email: string;
   onClose: () => void;
+  onLimitReached: () => void;
 }) {
   const [values, setValues] = useState<Values>({
     phone: "",
@@ -84,7 +86,12 @@ export default function RequestRepairForm({
       setSent(true);
       toast.success("Repair request sent");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Something went wrong");
+      // Free plan limit: open the upgrade modal instead of a plain toast
+      if ((error as Error & { code?: string }).code === "FREE_LIMIT_REACHED") {
+        onLimitReached();
+      } else {
+        toast.error(error instanceof Error ? error.message : "Something went wrong");
+      }
     } finally {
       setIsLoading(false);
     }
